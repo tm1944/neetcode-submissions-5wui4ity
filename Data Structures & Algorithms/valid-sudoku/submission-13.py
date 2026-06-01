@@ -1,15 +1,12 @@
 class Solution:
-    def isValidSudoku(self, board: List[List[str]]) -> bool:
-        rows = defaultdict(set)
-        cols = defaultdict(set)
-        squares = defaultdict(set)
-        for r in range(9):
-            for c in range(9):
-                if board[r][c] == ".":
-                    continue
-                if board[r][c] in rows[r] or board[r][c] in cols[c] or board[r][c] in squares[r//3,c//3]:
-                    return False
-                rows[r].add(board[r][c])
-                cols[c].add(board[r][c])
-                squares[r//3,c//3].add(board[r][c])               
-        return True
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        res = [0] * len(nums)
+        prefix = 1
+        for i in range(len(nums)):
+            res[i] = prefix
+            prefix *= nums[i]
+        postfix = 1
+        for i in range(len(nums)-1,-1,-1):
+            res[i] *= postfix
+            postfix *= nums[i]
+        return res
